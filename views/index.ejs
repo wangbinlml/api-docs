@@ -1,0 +1,23 @@
+<% include partials/header %>
+<div class="row outer">
+    <div class="chapter-muen col-md-2">
+        <% include partials/sidebar %>
+    </div>
+    <div class="chapter-center col-md-2">
+        <div class="chapter-title"><span data-v-7ba05ed2="">子目录/笔记</span>
+            <i class="op-packup collapse-btn"></i>
+        </div>
+        <ul id="content_list">
+
+        </ul>
+    </div>
+    <div class="doc-content col-md-8">
+        <input type="text" placeholder="这里输入标题" name="titleInput" id="titleInput" class="title-input"/>
+        <input type="hidden" name="contentId" id="contentId"/>
+        <div id="editor">
+            <!-- Tips: Editor.md can auto append a `<textarea>` tag -->
+            <textarea style="display:none;">### Hello Editor.md !</textarea>
+        </div>
+    </div>
+</div>
+<% include partials/footer %>

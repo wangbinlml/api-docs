@@ -1,0 +1,22 @@
+{
+  "name": "api-docs",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www",
+    "win_start": "set NODE_ENV=production&&nodemon ./bin/www",
+    "win_dev": "set NODE_ENV=development&&nodemon ./bin/www",
+    "mac_start": "NODE_ENV=production nodemon ./bin/www",
+    "mac_dev": "NODE_ENV=development nodemon ./bin/www"
+  },
+  "dependencies": {
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "editor.md": "^1.5.0",
+    "ejs": "~2.6.1",
+    "express": "~4.16.1",
+    "http-errors": "~1.6.3",
+    "log4js": "^6.1.2",
+    "mongoose": "^5.9.5"
+  }
+}

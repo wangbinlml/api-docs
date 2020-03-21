@@ -1,0 +1,86 @@
+<div class="chapter-title container-fluid">
+    <div class="navbar-header">
+        <label>文档分类</label>
+    </div>
+    <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
+                <i class="glyphicon glyphicon-plus"></i>&nbsp;新建<b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+                <li><a href="javascript:void(0);" id="folder">文件夹</a></li>
+                <li><a href="javascript:void(0);" id="note">笔记</a></li>
+                <li><a href="javascript:void(0);" id="template">模板接口</a></li>
+            </ul>
+        </li>
+    </ul>
+</div>
+<aside class="main-sidebar">
+    <section class="sidebar">
+        <input type="hidden" id="currentCategory" value="5e74d421bd68c4301208cf5b"/>
+        <ul class="sidebar-menu">
+            <% category.forEach(function(item, index){
+                var obj = {
+                    _id: item._id,
+                    name: item.name,
+                    isDefault: item.isDefault,
+                    pid: item.pid,
+                    level: item.level
+                };
+            %>
+            <li class="<% if(item['name'] == '我的文件夹'){ %>treeview context myfolder<% } else if(item['name'] == '最新文档'){ %>active<% } %>">
+                <a href="javascript:void(0);" data="<%= JSON.stringify(obj) %>"><i class="<%= item['icon'] %>"></i><span>&nbsp;<%= item['name'] %></span>
+                    <% if(item['name'] == '我的文件夹'){ %>
+                    <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                    <% } %>
+                </a></li>
+            <% }) %>
+
+            <!--<li class="treeview"><a href="#"><i class="fa fa-files-o"></i><span>界面选项</span></a>
+                <ul class="treeview-menu" style="display: none;">
+                    <li><a href="#"><i class="fa fa-circle-o"></i>置顶</a></li>
+                    <li><a href="#"><i class="fa fa-circle-o"></i>盒子</a></li>
+                    <li><a href="#"><i class="fa fa-circle-o"></i>固定</a></li>
+                    <li class=""><a href="#"><i class="fa fa-circle-o"></i>折叠</a></li>
+                </ul>
+            </li>
+            <li><a href="#"><i class="fa fa-th"></i><span>窗口小部件</span>
+                </a></li>
+            <li><a href="#"><i class="fa fa-calendar"></i><span>日历</span>
+                </a></li>
+            <li><a href="#"><i class="fa fa-envelope"></i><span>邮箱</span>
+                </a></li>
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-share"></i>
+                    <span>多级</span>
+                    <i class="fa fa-angle-left pull-right">
+
+                    </i>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="#"><i class="fa fa-circle-o"></i>一级菜单1</a></li>
+                    <li><a href="#"><i class="fa fa-circle-o"></i>一级菜单2 <i
+                                    class="fa fa-angle-left pull-right"></i></a>
+                        <ul class="treeview-menu">
+                            <li><a href="#"><i class="fa fa-circle-o"></i>二级菜单1</a></li>
+                            <li><a href="#"><i class="fa fa-circle-o"></i>二级菜单2 <i
+                                            class="fa fa-angle-left pull-right"></i></a>
+                                <ul class="treeview-menu">
+                                    <li><a href="#"><i class="fa fa-circle-o"></i>三级菜单1</a></li>
+                                    <li><a href="#"><i class="fa fa-circle-o"></i>三级菜单2</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li><a href="#"><i class="fa fa-circle-o"></i>一级菜单3</a></li>
+                </ul>
+            </li>
+            <li><a href="#"><i class="fa fa-book"></i><span>文档</span></a></li>
+            <li class="header">标签</li>
+            <li><a href="#"><i class="fa fa-circle-o text-red"></i><span>重要</span></a></li>
+            <li><a href="#"><i class="fa fa-circle-o text-yellow"></i><span>警示</span></a></li>
+            <li><a href="#"><i class="fa fa-circle-o text-aqua"></i><span>提示</span></a></li>-->
+        </ul>
+    </section>
+</aside>
