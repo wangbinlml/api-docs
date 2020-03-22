@@ -28,7 +28,7 @@ router.post('/add', async function (req, res, next) {
     const pid = req.body.pid || "5e74d421bd68c4301208cf5b";
     const level = req.body.level;
     const opt = req.body.opt || 1;
-    const icon = req.body.icon || 'glyphicon glyphicon-folder-open';
+    const icon = req.body.icon || 'fa fa-folder';
     if (!name || !pid || !level) {
         res.status(200).json({code: 101, msg: "参数不全"});
     } else {

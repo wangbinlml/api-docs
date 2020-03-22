@@ -88,7 +88,7 @@ $(function () {
             };
             if(parentNode && parentNode.length>0) {
                 var obj = {
-                    icon: 'glyphicon glyphicon-folder-open',
+                    icon: 'fa fa-folder-o',
                     name: $('#categoryName').val(),
                     pid: parentNode[0]._id,
                     level: parentNode[0].level + 1,
