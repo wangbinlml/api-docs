@@ -51,8 +51,8 @@ router.post('/add', async function (req, res, next) {
                 opt: opt,
                 isDefault: false
             };
-            await CategoryService.addCategory(category);
-            res.status(200).json({code: 0, msg: "保存成功"});
+            category = await CategoryService.addCategory(category);
+            res.status(200).json({code: 0, msg: "保存成功", data: category});
         }
     }
 });

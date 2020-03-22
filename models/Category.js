@@ -7,6 +7,7 @@ const CategorySchema = new Schema({
     icon: {type: String},
     userId: {type: String},
     opt: {type: Number},
+    code: {type: String},
     level: {type: Number},
     isDefault: {type: Boolean, default: false},
     createdAt: {type: Date, default: Date.now}
