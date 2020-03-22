@@ -116,7 +116,7 @@ $(function () {
         $('#left-tree').treeview('updateNode', [node, newNode]);
     });
     //显示-添加
-    $("#btnAdd").click(function () {
+    $("#addFolder").click(function () {
         var node = $('#left-tree').treeview('getSelected');
         if (node.length == 0) {
             new Noty({
@@ -247,7 +247,7 @@ $(function () {
         });
     }
 
-    $("#noteAdd").click(function () {
+    $("#addDoc").click(function () {
         addDoc();
     });
 
@@ -412,7 +412,7 @@ $(function () {
                 isSave = true;
             }
         }
-        if(isSave) {
+        if (isSave) {
             $.ajax({
                 type: 'POST',
                 url: "/admin/content",

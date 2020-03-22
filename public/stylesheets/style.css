@@ -230,3 +230,7 @@ a {
     white-space: nowrap; /*禁止自动换行*/
     overflow: hidden;
 }
+#content_list li.addDocLi {
+    text-align: center;
+    margin-top: 10px;
+}
