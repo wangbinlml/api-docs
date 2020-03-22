@@ -142,6 +142,9 @@ $(function () {
     });
     //显示-添加
     $("#addFolder").click(function () {
+        addFolder();
+    });
+    function addFolder() {
         var node = $('#left-tree').treeview('getSelected');
         if (node.length == 0) {
             new Noty({
@@ -157,7 +160,7 @@ $(function () {
         }
         $('#categoryName').val('');
         $('#addOperation-dialog').modal('show');
-    });
+    }
     function editFolder (node) {
         $('#categoryName').val(node.name);
         $('#categoryEditID').val(node._id);
@@ -224,7 +227,12 @@ $(function () {
             var value = editor.getMarkdown();       // 获取 Markdown 源码
             //testEditor.getHTML();           // 获取 Textarea 保存的 HTML 源码
             //testEditor.getPreviewedHTML();  // 获取预览窗口里的 HTML，在开启 watch 且没有开启 saveHTMLToTextarea 时使用
-            addContent(contentId, title, value);
+            addContent(contentId, title, value, function (data) {
+                var parentNode = $('#left-tree').treeview('getSelected');
+                if (parentNode && parentNode.length > 0) {
+                    getCenterPositionContent(parentNode[0], 0);
+                }
+            });
             return false;
         }
         return true;
@@ -236,7 +244,12 @@ $(function () {
         var value = editor.getMarkdown();       // 获取 Markdown 源码
         //testEditor.getHTML();           // 获取 Textarea 保存的 HTML 源码
         //testEditor.getPreviewedHTML();  // 获取预览窗口里的 HTML，在开启 watch 且没有开启 saveHTMLToTextarea 时使用
-        addContent(contentId, title, value);
+        addContent(contentId, title, value,function (data) {
+            var parentNode = $('#left-tree').treeview('getSelected');
+            if (parentNode && parentNode.length > 0) {
+                getCenterPositionContent(parentNode[0], 0);
+            }
+        });
     });
     // 标题输入后自动显示到重要区域列表
     $("#titleInput").on('input', function (e) {
@@ -252,11 +265,14 @@ $(function () {
                 addContentInit(data);
             } else if(key == 'rename') {
                 editFolder(data);
+            } else if(key == 'addFolder') {
+                addFolder();
             } else {
                 window.console && console.log(data) || alert(data);
             }
         },
         items: {
+            "addFolder": {name: "新建文件夹", icon: "edit"},
             "add": {name: "新建文档", icon: "edit"},
             "moveTo": {name: "移动到", icon: "copy"},
             "delete": {name: "删除", icon: "delete"},
