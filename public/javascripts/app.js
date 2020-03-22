@@ -83,19 +83,44 @@ $(function () {
     function BindEvent() {
         //保存-新增
         $("#Save").click(function () {
+            var categoryName = $('#categoryName').val();
+            var categoryEditID = $('#categoryEditID').val();
+            if (!categoryName || categoryName.trim() == "") {
+                new Noty({
+                    type: 'warning',
+                    layout: 'topCenter',
+                    text: '新增失败，请重试',
+                    timeout: '5000'
+                }).show();
+                return;
+            }
             $('#addOperation-dialog').modal('hide')
             //静态添加节点
             var parentNode = $('#left-tree').treeview('getSelected');
             if (parentNode && parentNode.length > 0) {
-                var obj = {
-                    icon: 'fa fa-folder-o',
-                    name: $('#categoryName').val(),
-                    pid: parentNode[0]._id,
-                    level: parentNode[0].level + 1,
-                };
-                addCategory(obj, function (node) {
-                    $('#left-tree').treeview('addNode', [node, parentNode], 0);
-                });
+                if (categoryEditID) {
+                    var obj = {
+                        id: categoryEditID,
+                        name: categoryName,
+                        pid: parentNode[0].pid,
+                    };
+                    var newNode = {
+                        name: categoryName
+                    };
+                    addCategory(obj, function (node) {
+                        $('#left-tree').treeview('updateNode', [parentNode, newNode]);
+                    });
+                } else {
+                    var obj = {
+                        icon: 'fa fa-folder-o',
+                        name: categoryName,
+                        pid: parentNode[0]._id,
+                        level: parentNode[0].level + 1,
+                    };
+                    addCategory(obj, function (node) {
+                        $('#left-tree').treeview('addNode', [node, parentNode], 0);
+                    });
+                }
             } else {
                 new Noty({
                     type: 'warning',
@@ -133,11 +158,24 @@ $(function () {
         $('#categoryName').val('');
         $('#addOperation-dialog').modal('show');
     });
-    //显示-编辑
-    $("#btnEdit").click(function () {
+    function editFolder (node) {
+        $('#categoryName').val(node.name);
+        $('#categoryEditID').val(node._id);
+        $('#addOperation-dialog').modal('show');
+    }
+    //显示-编辑categoryName
+    $("#editFolder").click(function () {
         var node = $('#left-tree').treeview('getSelected');
-        $('#editShow').show();
-
+        if (!isMyFolder(node[0])) {
+            new Noty({
+                type: 'warning',
+                layout: 'topCenter',
+                text: '默认分类不能修改',
+                timeout: '5000'
+            }).show();
+            return;
+        }
+        editFolder(node[0]);
     });
     //删除
     $("#btnDel").click(function () {
@@ -212,6 +250,8 @@ $(function () {
             var data = JSON.parse($(this).attr("data"));
             if (key == 'add') {
                 addContentInit(data);
+            } else if(key == 'rename') {
+                editFolder(data);
             } else {
                 window.console && console.log(data) || alert(data);
             }
@@ -452,7 +492,7 @@ $(function () {
     function addCategory(data, cb) {
         $.ajax({
             type: 'POST',
-            url: "/admin/category/add",
+            url: "/admin/category",
             asyc: false,
             data: data,
             error: function (error) {

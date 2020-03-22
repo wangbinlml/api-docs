@@ -234,3 +234,6 @@ a {
     text-align: center;
     margin-top: 10px;
 }
+.modal.fade.in{
+    left: 10%;
+}

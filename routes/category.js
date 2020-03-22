@@ -21,7 +21,7 @@ router.get('/getCategory', async function (req, res, next) {
     const category = await CategoryService.getCategory(userId);
     res.status(200).json({code: 0, msg: "保存成功", data: category});
 });
-router.post('/add', async function (req, res, next) {
+router.post('/', async function (req, res, next) {
     const user = req.session.user;
     const userId = user._id;
     const name = req.body.name;
@@ -29,44 +29,9 @@ router.post('/add', async function (req, res, next) {
     const level = req.body.level;
     const opt = req.body.opt || 1;
     const icon = req.body.icon || 'fa fa-folder';
-    if (!name || !pid || !level) {
-        res.status(200).json({code: 101, msg: "参数不全"});
-    } else {
-        let category = await Category.findOne({
-            where: {
-                userId: userId,
-                pid: pid,
-                name: name
-            }
-        });
-        if (category) {
-            res.status(200).json({code: 101, msg: name + "已经存在"});
-        } else {
-            category = {
-                name: name,
-                userId: userId,
-                pid: pid,
-                level: level,
-                icon: icon,
-                opt: opt,
-                isDefault: false
-            };
-            category = await CategoryService.addCategory(category);
-            res.status(200).json({code: 0, msg: "保存成功", data: category});
-        }
-    }
-});
-router.post('/update', async function (req, res, next) {
-    const user = req.session.user;
-    const userId = user._id;
+
     const id = req.body.id;
-    const name = req.body.name;
-    const pid = req.body.pid || 0;
-    const level = req.body.level;
-    const opt = req.body.opt || 1;
-    if (!id || !name || !pid || !level) {
-        res.status(200).json({code: 101, msg: "参数不全"});
-    } else {
+    if(id) {
         let category = await Category.findOne({
             where: {
                 userId: userId,
@@ -79,13 +44,39 @@ router.post('/update', async function (req, res, next) {
         } else {
             category = {
                 id: id,
+                userId: userId,
                 name: name,
-                pid: pid,
-                level: level,
-                opt: opt
+                pid: pid
             };
             await CategoryService.updateCategory(category);
             res.status(200).json({code: 0, msg: "更新成功"});
+        }
+    } else {
+        if (!name || !pid || !level) {
+            res.status(200).json({code: 101, msg: "参数不全"});
+        } else {
+            let category = await Category.findOne({
+                where: {
+                    userId: userId,
+                    pid: pid,
+                    name: name
+                }
+            });
+            if (category) {
+                res.status(200).json({code: 101, msg: name + "已经存在"});
+            } else {
+                category = {
+                    name: name,
+                    userId: userId,
+                    pid: pid,
+                    level: level,
+                    icon: icon,
+                    opt: opt,
+                    isDefault: false
+                };
+                category = await CategoryService.addCategory(category);
+                res.status(200).json({code: 0, msg: "保存成功", data: category});
+            }
         }
     }
 });

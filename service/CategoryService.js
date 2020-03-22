@@ -39,8 +39,8 @@ exports.addCategory = async (category) => {
     return await new Category(category).save();
 };
 exports.updateCategory = async (category) => {
-    return await Category.update({
-        _id: category.id,
+    return await Category.updateOne({
+        _id: mongoose.Types.ObjectId(category.id),
         userId: category.userId
     }, category);
 };
