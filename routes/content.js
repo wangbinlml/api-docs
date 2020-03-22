@@ -7,39 +7,41 @@ const CategoryService = require('../service/CategoryService');
 const ContentService = require('../service/ContentService');
 
 router.get('/', async function (req, res, next) {
-    const userId = req.query.userId || 1;
+    const user = req.session.user;
+    const userId = user._id;
     const type = req.query.type || 0;
     let category = [];
     let content = [];
     if (type == 1) {
         // 最新的
-        content = await ContentService.getContentByParams({isDel: 0});
+        content = await ContentService.getContentByParams({userId: userId, isDel: 0});
     } else if (type == 2) {
         // 分享给我的
-        content = await ContentService.getContentByParams({isDel: 0});
+        content = await ContentService.getContentByParams({userId: userId, isDel: 0});
     } else if (type == 3) {
         // 标签
         const tags = req.query.pid;
-        content = await ContentService.getContentByParams({isDel: 0, tags: {in: tags}});
+        content = await ContentService.getContentByParams({userId: userId, isDel: 0, tags: {in: tags}});
     } else if (type == 4) {
         // 加星
-        content = await ContentService.getContentByParams({isDel: 1});
+        content = await ContentService.getContentByParams({userId: userId, star: true, isDel: 0});
     } else if (type == 5) {
         // 回收站
-        content = await ContentService.getContentByParams({isDel: 1});
+        content = await ContentService.getContentByParams({userId: userId, isDel: 1});
     } else if (type == 6) {
         const keywords = req.query.pid;
         const reg = new RegExp(keywords, 'i');
         // 搜索
         const where = {
+            userId: userId,
             isDel: 0,
             $or: [{title: reg}, {content: reg}]
         };
         content = await ContentService.getContentByParams(where);
     } else {
         const pid = req.query.pid || "5e74d421bd68c4301208cf5b";
-        category = await CategoryService.getCategoryByPid(pid);
-        content = await ContentService.getContentByCategoryId(pid);
+        category = await CategoryService.getCategoryByPid(userId, pid);
+        content = await ContentService.getContentByCategoryId(userId, pid);
     }
     res.status(200).json({
         code: 0,
@@ -51,7 +53,8 @@ router.get('/', async function (req, res, next) {
     });
 });
 router.get('/detail', async function (req, res, next) {
-    const userId = req.query.userId || 1;
+    const user = req.session.user;
+    const userId = user._id;
     const id = req.query.id || 0;
     if (id == 0) {
         res.status(200).json({
@@ -69,7 +72,8 @@ router.get('/detail', async function (req, res, next) {
 });
 
 router.post('/', async function (req, res, next) {
-    const userId = req.body.userId || 1;
+    const user = req.session.user;
+    const userId = user._id;
     const id = req.body.id;
     const title = req.body.title || '新建文档';
     const content = req.body.content;
@@ -88,19 +92,22 @@ router.post('/', async function (req, res, next) {
         link: link,
         password: password,
         star: star,
-        top: top
+        top: top,
+        createdAt: new Date()
     };
+    let result = null;
     if (!id) {
-        await ContentService.addContent(contentObj);
+        result = await ContentService.addContent(contentObj);
     } else {
         contentObj.id = id;
-        await ContentService.updateContent(contentObj);
+        result = await ContentService.updateContent(contentObj);
     }
-    res.status(200).json({code: 0, msg: "保存成功"});
+    res.status(200).json({code: 0, msg: "保存成功", data: result});
 });
 
 router.post('/delete', async function (req, res, next) {
-    const userId = req.body.userId || 1;
+    const user = req.session.user;
+    const userId = user._id;
     const id = req.body.id;
     if (!id) {
         res.status(200).json({code: 101, msg: "参数不全"});

@@ -10,13 +10,18 @@
     "mac_dev": "NODE_ENV=development nodemon ./bin/www"
   },
   "dependencies": {
+    "connect-redis": "^4.0.4",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "editor.md": "^1.5.0",
     "ejs": "~2.6.1",
     "express": "~4.16.1",
+    "express-session": "^1.17.0",
     "http-errors": "~1.6.3",
+    "ioredis": "^4.16.0",
+    "ipware": "^2.0.0",
     "log4js": "^6.1.2",
-    "mongoose": "^5.9.5"
+    "mongoose": "^5.9.5",
+    "uuid": "^7.0.2"
   }
 }

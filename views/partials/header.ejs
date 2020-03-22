@@ -4,9 +4,9 @@
     <title><%= title %></title>
     <!-- 新 Bootstrap 核心 CSS 文件 -->
     <link href="/stylesheets/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="bower_components/editor.md/css/editormd.min.css"/>
+    <link rel="stylesheet" href="/bower_components/editor.md/css/editormd.min.css"/>
     <link rel='stylesheet' href='/stylesheets/font-awesome.min.css'/>
-    <link rel='stylesheet' href='/stylesheets/sidebar-menu.css'/>
+    <link rel="stylesheet" href="/bower_components/bootstrap-treeview/plugins/bootstrap-treeview/bootstrap-treeview.min.css">
     <link rel="stylesheet" href="/stylesheets/jquery.contextMenu.min.css">
     <link rel='stylesheet' href='/stylesheets/noty.css'/>
     <link rel='stylesheet' href='/stylesheets/style.css'/>
@@ -15,7 +15,7 @@
 <nav class="navbar navbar-default" role="navigation">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="/"><%= title %></a>
+            <a class="navbar-brand" href="/"><i class="fa fa-cube" aria-hidden="true"></i>&nbsp;<%= title %></a>
         </div>
         <ul class="nav navbar-nav navbar-right">
             <li><a href="javascript:void(0);" id="saveContent"><span class="glyphicon glyphicon-floppy-save"></span> 保存</a></li>
@@ -37,8 +37,17 @@
                     <li><a href="#">PDF</a></li>
                 </ul>
             </li>
-            <li><a href="#"><span class="glyphicon glyphicon-user"></span> 注册</a></li>
-            <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> 登录</a></li>
+            <li class="dropdown">
+                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
+                    <i class="glyphicon glyphicon-user"></i>&nbsp;个人信息<b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="#">修改资料</a></li>
+                    <li><a href="#">修改密码</a></li>
+                    <li><a href="/exit">退出登录</a></li>
+                </ul>
+            </li>
         </ul>
     </div>
 </nav>
+<body>

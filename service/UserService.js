@@ -1,3 +1,9 @@
 var User = require('../models/User');
-var Category = require('../models/Category');
-var Content = require('../models/Content');
+
+exports.getUser = async (username) => {
+    var data = await User.findOne({username: username});
+    return data;
+};
+exports.addUser = async (user) => {
+    return await new User(user).save();
+};

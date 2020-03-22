@@ -3,8 +3,8 @@ var Category = require('../models/Category');
 var Content = require('../models/Content');
 var mongoose = require('mongoose');
 
-exports.getContentByCategoryId = async (categoryId) => {
-    var data = await Content.find({categoryId: categoryId, isDel: 0}).sort({opt: -1, _id: -1});
+exports.getContentByCategoryId = async (userId, categoryId) => {
+    var data = await Content.find({categoryId: categoryId, userId:userId, isDel: 0}).sort({opt: -1, _id: -1});
     return data;
 };
 

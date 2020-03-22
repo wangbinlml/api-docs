@@ -1,23 +1,234 @@
-<% include partials/header %>
-<div class="row outer">
-    <div class="chapter-muen col-md-2">
-        <% include partials/sidebar %>
-    </div>
-    <div class="chapter-center col-md-2">
-        <div class="chapter-title"><span data-v-7ba05ed2="">子目录/笔记</span>
-            <i class="op-packup collapse-btn"></i>
+<% include partials/frontend-header %>
+<body>
+<div id="particles-js">
+    <canvas class="particles-js-canvas-el" style="width: 100%; height: 100%;"></canvas>
+</div>
+<ul class="cb-slideshow">
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+</ul>
+<div id="container">
+    <div class="col-xl-12 col-sm12 col-xs-12 welcome"><h>欢迎访问云笔记系统</h></div>
+    <div class="row container">
+        <div class="col-xl-6 col-sm-6 col-xs-6">
+            <img src="/images/01_cloud-d77f99e2dc.png" style="width: 100%;"/>
         </div>
-        <ul id="content_list">
+        <div class="col-xl-6 col-sm-6 col-xs-6">
+                <div class="container-fluid">
+                    <div class="row cb-slideshow-text-container ">
+                        <ul class="myTab row nav nav-tabs">
+                            <li class="active login-type loginTabs">
+                                <a href="#loginTabs" data-toggle="tab">
+                                    通行证登录
+                                </a>
+                            </li>
+                            <li class="login-type"><a href="#registerTabs" data-toggle="tab">新用户注册</a></li>
+                        </ul>
+                        <div id="myTabContent" class="tab-content">
+                            <div class="tab-pane fade in active" id="loginTabs">
+                                <div class="tm-content col-xl-12 col-sm-12 col-xs-12 ml-auto section">
+                                    <form id="loginForm" name="loginForm" class="subscribe-form">
+                                        <div class="row form-section">
+                                            <div class="col-md-12 col-sm-12 col-xs-12 form-group">
+                                                <input name="username" type="text" class="form-control text" id="username"
+                                                       placeholder="请输入用户名/电子邮箱地址/手机号" required="">
+                                            </div>
+                                            <div class="col-md-12 col-sm-12 col-xs-12 form-group">
+                                                <input name="password" type="password" class="form-control text" id="password"
+                                                       placeholder="请输入密码" required="">
+                                            </div>
+                                            <div class="col-md-12 col-sm-12 col-xs-12 form-group">
+                                                <button type="button" id="login" class="tm-btn-subscribe col-md-4">立即登录</button>
+                                                <a href="" class="col-md-4 register"></a>
+                                                <a href="" class="col-md-4 find-password">找回密码</a>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="registerTabs">
+                                <div class="tm-content col-xl-12 col-sm-12 col-xs-12 ml-auto section">
+                                    <form id="registerForm" name="registerForm">
+                                        <div class="row form-section">
 
-        </ul>
-    </div>
-    <div class="doc-content col-md-8">
-        <input type="text" placeholder="这里输入标题" name="titleInput" id="titleInput" class="title-input"/>
-        <input type="hidden" name="contentId" id="contentId"/>
-        <div id="editor">
-            <!-- Tips: Editor.md can auto append a `<textarea>` tag -->
-            <textarea style="display:none;">### Hello Editor.md !</textarea>
+                                            <div class="col-md-12 col-sm-12 col-xs-12 form-group">
+                                                <input name="rusername" type="text" class="form-control text" id="rusername"
+                                                       placeholder="请输入用户名/电子邮箱地址/手机号" required="">
+                                            </div>
+                                            <div class="col-md-12 col-sm-12 col-xs-12 form-group">
+                                                <input name="rpassword" type="password" class="form-control text" id="rpassword"
+                                                       placeholder="请输入密码" required="">
+                                            </div>
+                                            <div class="col-md-12 col-sm-12 col-xs-12 form-group">
+                                                <input name="repassword" type="password" class="form-control text" id="repassword"
+                                                       placeholder="请再次输入密码" required="">
+                                            </div>
+                                            <div class="col-md-12 col-sm-12 col-xs-12 form-group">
+                                                <button type="button" id="register" class="tm-btn-subscribe col-md-4">马上注册</button>
+                                                <a href="" class="col-md-4 register"></a>
+                                                <a href="" class="col-md-4 find-password"></a>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
         </div>
     </div>
 </div>
-<% include partials/footer %>
+<% include partials/frontend-footer.ejs %>
+<script>
+    $(function () {
+        $("#username").focus();
+
+        function login() {
+            var username = $("#username").val();
+            var password = $('#password').val();
+            if (username == "" || username.trim() == "") {
+                $(".login-box-msg").text('用户名不能为空');
+                new Noty({
+                    type: 'error',
+                    layout: 'topCenter',
+                    text: '用户名不能为空',
+                    timeout: '2000'
+                }).show();
+            } else if (password == "" || password.trim() == "") {
+                $(".login-box-msg").text('密码不能为空');
+                new Noty({
+                    type: 'error',
+                    layout: 'topCenter',
+                    text: '密码不能为空',
+                    timeout: '2000'
+                }).show();
+            } else {
+                console.log($("#loginForm").serialize())
+                $.ajax({
+                    type: "POST",
+                    url: "/login",
+                    data: {
+                        username: username,
+                        password: password.trim()
+                    },
+                    asyc: false,
+                    beforeSend: function () {
+                        $(".login-box-msg").html("<img src='/images/loading.gif'>");
+                    },
+                    error: function (error) {
+                        $(".login-box-msg").text('内部错误，请稍后再试');
+                        new Noty({
+                            type: 'error',
+                            layout: 'topCenter',
+                            text: '内部错误，请稍后再试',
+                            timeout: '2000'
+                        }).show();
+                    },
+                    success: function (result) {
+                        if (result.error) {
+                            $(".login-box-msg").text(result.msg || '登录失败   ');
+                            new Noty({
+                                type: 'error',
+                                layout: 'topCenter',
+                                text: result.msg || '登录失败',
+                                timeout: '2000'
+                            }).show();
+                        } else {
+                            window.location.href = "/admin";
+                        }
+                    }
+                });
+            }
+        }
+
+        $("#login").click(function () {
+            login();
+        });
+
+        function register() {
+            var username = $("#rusername").val();
+            var password = $('#rpassword').val();
+            var repassword = $('#repassword').val();
+            if (username == "" || username.trim() == "") {
+                $(".login-box-msg").text('用户名不能为空');
+                new Noty({
+                    type: 'error',
+                    layout: 'topCenter',
+                    text: '用户名不能为空',
+                    timeout: '2000'
+                }).show();
+            } else if (password == "" || password.trim() == "" || repassword == ""|| repassword.trim() == "") {
+                $(".login-box-msg").text('密码不能为空');
+                new Noty({
+                    type: 'error',
+                    layout: 'topCenter',
+                    text: '密码不能为空',
+                    timeout: '2000'
+                }).show();
+            } else if (password.trim() != repassword.trim()) {
+                $(".login-box-msg").text('两次输入密码不相等');
+                new Noty({
+                    type: 'error',
+                    layout: 'topCenter',
+                    text: '两次输入密码不相等',
+                    timeout: '2000'
+                }).show();
+            } else {
+                console.log($("#registerForm").serialize())
+                $.ajax({
+                    type: "POST",
+                    url: "/register",
+                    data: {
+                        username: username,
+                        password: password.trim(),
+                        repassword: repassword.trim()
+                    },
+                    asyc: false,
+                    beforeSend: function () {
+                        $(".login-box-msg").html("<img src='/images/loading.gif'>");
+                    },
+                    error: function (error) {
+                        $(".login-box-msg").text('内部错误，请稍后再试');
+                        new Noty({
+                            type: 'error',
+                            layout: 'topCenter',
+                            text: '内部错误，请稍后再试',
+                            timeout: '2000'
+                        }).show();
+                    },
+                    success: function (result) {
+                        if (result.error) {
+                            $(".login-box-msg").text(result.msg || '注册失败   ');
+                            new Noty({
+                                type: 'error',
+                                layout: 'topCenter',
+                                text: result.msg || '注册失败',
+                                timeout: '2000'
+                            }).show();
+                        } else {
+                            new Noty({
+                                type: 'success',
+                                layout: 'topCenter',
+                                text: result.msg || '注册成功',
+                                timeout: '8000'
+                            }).show();
+                            $('.loginTabs a').trigger("click");
+                        }
+                    }
+                });
+            }
+        }
+        $("#register").click(function () {
+            register();
+        });
+        $(document).keyup(function (event) {
+            if (event.keyCode == 13) {
+                $("#login").trigger("click");
+            }
+        });
+    });
+</script>

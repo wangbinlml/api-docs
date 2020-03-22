@@ -29,7 +29,7 @@ const ContentSchema = new Schema({
         type: String
     },
     userId: {
-        type: Number
+        type: String
     },
     createdAt: {
         type: Date,

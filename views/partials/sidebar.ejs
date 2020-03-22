@@ -1,86 +1,56 @@
 <div class="chapter-title container-fluid">
     <div class="navbar-header">
-        <label>文档分类</label>
+        <label><i class="glyphicon glyphicon-fire"></i>&nbsp;文档分类</label>
     </div>
     <ul class="nav navbar-nav navbar-right">
         <li class="dropdown">
             <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
-                <i class="glyphicon glyphicon-plus"></i>&nbsp;新建<b class="caret"></b>
+                <i class="fa fa-plus"></i>&nbsp;新建<b class="caret"></b>
             </a>
             <ul class="dropdown-menu">
-                <li><a href="javascript:void(0);" id="folder">文件夹</a></li>
-                <li><a href="javascript:void(0);" id="note">笔记</a></li>
-                <li><a href="javascript:void(0);" id="template">模板接口</a></li>
+                <li><a href="javascript:void(0);" id="btnAdd"><i class='fa fa-folder-o'></i>&nbsp;文件夹</a></li>
+                <li><a href="javascript:void(0);" id="noteAdd"><i class='fa fa-file-o'></i>&nbsp;笔记</a></li>
+                <li><a href="javascript:void(0);" id="template"><i class='fa fa-file-text-o'></i>&nbsp;模板接口</a></li>
             </ul>
         </li>
     </ul>
 </div>
-<aside class="main-sidebar">
-    <section class="sidebar">
-        <input type="hidden" id="currentCategory" value="5e74d421bd68c4301208cf5b"/>
-        <ul class="sidebar-menu">
-            <% category.forEach(function(item, index){
-                var obj = {
-                    _id: item._id,
-                    name: item.name,
-                    isDefault: item.isDefault,
-                    pid: item.pid,
-                    level: item.level
-                };
-            %>
-            <li class="<% if(item['name'] == '我的文件夹'){ %>treeview context myfolder<% } else if(item['name'] == '最新文档'){ %>active<% } %>">
-                <a href="javascript:void(0);" data="<%= JSON.stringify(obj) %>"><i class="<%= item['icon'] %>"></i><span>&nbsp;<%= item['name'] %></span>
-                    <% if(item['name'] == '我的文件夹'){ %>
-                    <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
-                    <% } %>
-                </a></li>
-            <% }) %>
+<div class="chapter-sidebar">
+    <aside class="main-sidebar">
+        <section class="sidebar">
+            <input type="hidden" id="currentCategory" value="5e74d421bd68c4301208cf5b"/>
+            <div id="left-tree">
+            </div>
+        </section>
+    </aside>
+</div>
 
-            <!--<li class="treeview"><a href="#"><i class="fa fa-files-o"></i><span>界面选项</span></a>
-                <ul class="treeview-menu" style="display: none;">
-                    <li><a href="#"><i class="fa fa-circle-o"></i>置顶</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o"></i>盒子</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o"></i>固定</a></li>
-                    <li class=""><a href="#"><i class="fa fa-circle-o"></i>折叠</a></li>
-                </ul>
-            </li>
-            <li><a href="#"><i class="fa fa-th"></i><span>窗口小部件</span>
-                </a></li>
-            <li><a href="#"><i class="fa fa-calendar"></i><span>日历</span>
-                </a></li>
-            <li><a href="#"><i class="fa fa-envelope"></i><span>邮箱</span>
-                </a></li>
-            <li class="treeview">
-                <a href="#">
-                    <i class="fa fa-share"></i>
-                    <span>多级</span>
-                    <i class="fa fa-angle-left pull-right">
+<!--弹出框 新增权限 start-->
+<div class="modal fade" id="addOperation-dialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content radius_5">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">新增</h4>
+            </div>
+            <div class="modal-body">
+                <div group="" item="add">
+                    <div>
+                        <div class="input-group margin-t-5">
+                            <span class="input-group-addon">分类名称:</span>
+                            <input id="categoryName" type="text" class="form-control" />
+                        </div>
 
-                    </i>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a href="#"><i class="fa fa-circle-o"></i>一级菜单1</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o"></i>一级菜单2 <i
-                                    class="fa fa-angle-left pull-right"></i></a>
-                        <ul class="treeview-menu">
-                            <li><a href="#"><i class="fa fa-circle-o"></i>二级菜单1</a></li>
-                            <li><a href="#"><i class="fa fa-circle-o"></i>二级菜单2 <i
-                                            class="fa fa-angle-left pull-right"></i></a>
-                                <ul class="treeview-menu">
-                                    <li><a href="#"><i class="fa fa-circle-o"></i>三级菜单1</a></li>
-                                    <li><a href="#"><i class="fa fa-circle-o"></i>三级菜单2</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
-                    <li><a href="#"><i class="fa fa-circle-o"></i>一级菜单3</a></li>
-                </ul>
-            </li>
-            <li><a href="#"><i class="fa fa-book"></i><span>文档</span></a></li>
-            <li class="header">标签</li>
-            <li><a href="#"><i class="fa fa-circle-o text-red"></i><span>重要</span></a></li>
-            <li><a href="#"><i class="fa fa-circle-o text-yellow"></i><span>警示</span></a></li>
-            <li><a href="#"><i class="fa fa-circle-o text-aqua"></i><span>提示</span></a></li>-->
-        </ul>
-    </section>
-</aside>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button id="Save" type="button" class="btn btn-primary">保存</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!--弹出框 新增权限 end-->

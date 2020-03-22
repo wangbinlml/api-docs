@@ -5,7 +5,7 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                             aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="exampleModalLabel">查看用户</h4>
+                <h4 class="modal-title" id="exampleModalLabel">注册/登录</h4>
             </div>
             <div class="modal-body">
                 <form class="form-horizontal" id="e-menu-role-form">
@@ -13,16 +13,14 @@
                         <div class="form-group">
                             <label for="name" class="col-sm-2 control-label">用户姓名</label>
                             <div class="col-sm-10">
-                                <span id="s_user_name" class="form-control"></span>
-                                <!--<input type="text" class="form-control" id="e_user_name" name="e_user_name"-->
-                                <!--placeholder="请输入用户姓名">-->
+                                <input type="text" class="form-control" id="e_user_name" name="e_user_name"
+                                placeholder="请输入用户姓名">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="username" class="col-sm-2 control-label">账号</label>
+                            <label for="username" class="col-sm-2 control-label">密码</label>
                             <div class="col-sm-10">
-                                <span id="s_phone" class="form-control"></span>
-                                <!--<input type="text" class="form-control" id="e_phone" name="e_phone" placeholder="请输入账号">-->
+                                <input type="text" class="form-control" id="e_password" name="e_password" placeholder="密码">
                             </div>
                         </div>
                     </div>
@@ -41,8 +39,11 @@
 
 <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
 <script src="/javascripts/bootstrap.min.js"></script>
-<script src="bower_components/editor.md/editormd.min.js"></script>
-<script src="/javascripts/sidebar-menu.js"></script>
+<script src="/bower_components/editor.md/editormd.min.js"></script>
+<script type="text/javascript" src="/bower_components/bootstrap-treeview/plugins/bootstrap-treeview/bootstrap-treeview.js"></script>
+<link rel="stylesheet" type="text/css" href="/bower_components/bootstrap-treeview/plugins/bootstrap-dialog/bootstrap-dialog.min.css">
+<script type="text/javascript" src="/bower_components/bootstrap-treeview/plugins/bootstrap-dialog/bootstrap-dialog.min.js"></script>
+<script src="/javascripts/moment.min.js"></script>
 <script src="/javascripts/jquery.contextMenu.js"></script>
 <script src="/javascripts/jquery.ui.position.min.js"></script>
 <script src="/javascripts/noty.min.js"></script>
