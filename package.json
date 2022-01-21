@@ -20,7 +20,7 @@
     "http-errors": "~1.6.3",
     "ioredis": "^4.16.0",
     "ipware": "^2.0.0",
-    "log4js": "^6.1.2",
+    "log4js": "^6.4.0",
     "moment": "^2.24.0",
     "mongoose": "^5.9.5",
     "node-pandoc": "^0.3.0",
