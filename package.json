@@ -21,7 +21,7 @@
     "ioredis": "^4.16.0",
     "ipware": "^2.0.0",
     "log4js": "^6.1.2",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "mongoose": "^5.9.5",
     "node-pandoc": "^0.3.0",
     "officegen": "^0.6.3",
